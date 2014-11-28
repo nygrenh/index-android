@@ -1,9 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="fi.henriknygren.index">
+    package="fi.henriknygren.index" >
 
-    <application android:allowBackup="true" android:label="@string/app_name"
-        android:icon="@drawable/ic_launcher" android:theme="@style/AppTheme">
-
+    <application
+        android:allowBackup="true"
+        android:icon="@drawable/ic_launcher"
+        android:label="@string/app_name"
+        android:theme="@style/AppTheme" >
+        <activity
+            android:name="fi.henriknygren.index.Add"
+            android:label="@string/title_activity_add" >
+            <intent-filter>
+                <action android:name="android.intent.action.SEND" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <data android:mimeType="text/plain" />
+            </intent-filter>
+        </activity>
     </application>
 
 </manifest>
