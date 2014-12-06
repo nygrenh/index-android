@@ -1,17 +1,39 @@
 package fi.henriknygren.index;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.TextView;
 
 
 public class Add extends Activity {
+
+    private TextView mTextView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add);
+        mTextView = (TextView) findViewById(R.id.add_text_view);
+
+        Intent intent = getIntent();
+        String action = intent.getAction();
+        String type = intent.getType();
+
+        if (Intent.ACTION_SEND.equals(action) && type != null) {
+            if ("text/plain".equals(type)) {
+                handleSendText(intent);
+            }
+        }
+    }
+
+    private void handleSendText(Intent intent) {
+        String text = intent.getStringExtra(Intent.EXTRA_TEXT);
+        if (text != null) {
+            mTextView.setText(text);
+        }
     }
 
 
