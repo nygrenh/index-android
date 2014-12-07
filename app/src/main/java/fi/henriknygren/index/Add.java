@@ -2,21 +2,25 @@ package fi.henriknygren.index;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.TextView;
-
+import android.webkit.WebView;
+import android.webkit.WebViewClient;
 
 public class Add extends Activity {
 
-    private TextView mTextView;
+    private static final String INDEX_URL = "https://theindex.herokuapp.com";
+    private static final String NEW_LINK_PATH = "/links/new?url=";
+
+    private WebView mWebView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_add);
-        mTextView = (TextView) findViewById(R.id.add_text_view);
+        mWebView = createWebView();
+        setContentView(mWebView);
 
         Intent intent = getIntent();
         String action = intent.getAction();
@@ -29,13 +33,20 @@ public class Add extends Activity {
         }
     }
 
+    private WebView createWebView() {
+        WebView webView = new WebView(this);
+        webView.getSettings().setJavaScriptEnabled(true);
+        webView.setWebViewClient(new WebViewClient());
+        return webView;
+    }
+
     private void handleSendText(Intent intent) {
         String text = intent.getStringExtra(Intent.EXTRA_TEXT);
         if (text != null) {
-            mTextView.setText(text);
+            String url = INDEX_URL + NEW_LINK_PATH + Uri.encode(text);
+            mWebView.loadUrl(url);
         }
     }
-
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
