@@ -30,6 +30,8 @@ public class MainScreen extends Activity {
             if ("text/plain".equals(type)) {
                 handleSendText(intent);
             }
+        } else {
+            mWebView.loadUrl(INDEX_URL);
         }
     }
 
