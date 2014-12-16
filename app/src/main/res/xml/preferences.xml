@@ -1,0 +1,9 @@
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+    <PreferenceCategory android:title="General">
+        <EditTextPreference
+            android:key="settings_index_url"
+            android:title="@string/title_index_url"
+            android:defaultValue="https://theindex.herokuapp.com/"
+            />
+    </PreferenceCategory>
+</PreferenceScreen>

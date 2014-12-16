@@ -21,6 +21,11 @@
                 <data android:mimeType="text/plain" />
             </intent-filter>
         </activity>
+
+        <activity
+            android:name=".preferences.SettingsActivity"
+            android:label="@string/settings_label">
+            </activity>
     </application>
 
 </manifest>
