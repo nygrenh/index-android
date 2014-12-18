@@ -2,6 +2,7 @@ package fi.henriknygren.index;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
@@ -35,7 +36,7 @@ public class MainScreen extends Activity {
                 handleSendText(intent);
             }
         } else {
-            mWebView.loadUrl(INDEX_URL);
+            mWebView.loadUrl(getBaseUrl());
         }
     }
 
@@ -49,9 +50,14 @@ public class MainScreen extends Activity {
     private void handleSendText(Intent intent) {
         String text = intent.getStringExtra(Intent.EXTRA_TEXT);
         if (text != null) {
-            String url = INDEX_URL + NEW_LINK_PATH + Uri.encode(text);
+            String url = getBaseUrl() + NEW_LINK_PATH + Uri.encode(text);
             mWebView.loadUrl(url);
         }
+    }
+
+    private String getBaseUrl() {
+        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
+        return preferences.getString("settings_index_url", INDEX_URL);
     }
 
     @Override
